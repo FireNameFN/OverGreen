@@ -1,35 +1,36 @@
 {
-	"schemaVersion": 1,
-	"id": "overgreen",
-	"version": "${version}",
-	"name": "OverGreen",
-	"description": "Take vision of the game under control.",
-	"authors": [
-		"FN"
-	],
-	"contact": {
-		"homepage": "I need to",
-		"issues": "And this.",
-		"sources": "fill this later."
-	},
-	"license": "MIT",
-	"icon": "assets/overgreen/icon.png",
-	"environment": "client",
-	"entrypoints": {
-		"client": [
-			"overgreen.OverGreen"
-		],
-		"sodium:config_api_user": [
-			"overgreen.OverGreen"
-		]
-	},
-	"mixins": [
-		"overgreen.mixins.json"
-	],
-	"depends": {
-		"fabricloader": ">=0.18.4",
-		"minecraft": ">=1.21.11",
-		"java": ">=21",
-		"fabric-api": "*"
-	}
+    "schemaVersion": 1,
+    "id": "overgreen",
+    "version": "${version}",
+    "name": "OverGreen",
+    "description": "Take vision of the game under control.",
+    "authors": [
+        "FN"
+    ],
+    "contact": {
+        "homepage": "I need to",
+        "issues": "And this.",
+        "sources": "fill this later."
+    },
+    "license": "MIT",
+    "icon": "assets/overgreen/icon.png",
+    "environment": "client",
+    "entrypoints": {
+        "client": [
+            "overgreen.OverGreen"
+        ],
+        "sodium:config_api_user": [
+            "overgreen.OverGreen"
+        ]
+    },
+    "mixins": [
+        "overgreen.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.18.4",
+        "minecraft": ">=1.21.11",
+        "java": ">=21",
+        "fabric-api": "*",
+        "sodium": "*"
+    }
 }

@@ -1,15 +1,16 @@
 {
-	"required": true,
-	"package": "overgreen.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-		"LightTextureMixin",
-		"ScreenEffectRendererMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"overwrites": {
-		"requireAnnotations": true
-	}
+    "required": true,
+    "package": "overgreen.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [
+        "FogRendererMixin",
+        "LightTextureMixin",
+        "ScreenEffectRendererMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "overwrites": {
+        "requireAnnotations": true
+    }
 }

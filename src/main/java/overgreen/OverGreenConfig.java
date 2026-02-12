@@ -5,6 +5,14 @@ public final class OverGreenConfig {
 
     final IntegerOption gammaMultiplier = new IntegerOption();
 
+    final BooleanOption disableOverworldFog = new BooleanOption();
+
+    final BooleanOption disableNetherFog = new BooleanOption();
+
+    final BooleanOption disableTheEndFog = new BooleanOption();
+
+    final BooleanOption disableWaterFog = new BooleanOption();
+
     final IntegerOption fireTransparency = new IntegerOption();
 
     final IntegerOption fireOffset = new IntegerOption();
@@ -28,6 +36,22 @@ public final class OverGreenConfig {
 
     public float getGammaMultiplier() {
         return gammaMultiplier.getValue() / 10f;
+    }
+
+    public boolean getDisableOverworldFog() {
+        return disableOverworldFog.getValue();
+    }
+
+    public boolean getDisableNetherFog() {
+        return disableNetherFog.getValue();
+    }
+
+    public boolean getDisableTheEndFog() {
+        return disableTheEndFog.getValue();
+    }
+
+    public boolean getDisableWaterFog() {
+        return disableWaterFog.getValue();
     }
 
     public float getFireTransparency() {

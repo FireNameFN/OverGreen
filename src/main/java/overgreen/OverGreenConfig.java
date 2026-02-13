@@ -17,6 +17,10 @@ public final class OverGreenConfig {
 
     final IntegerOption fireOffset = new IntegerOption();
 
+    final BooleanOption enablePermanentHud = new BooleanOption();
+
+    final HudFormatOption hudFormat = new HudFormatOption();
+
     void dirty() {
         dirty = true;
     }
@@ -60,5 +64,13 @@ public final class OverGreenConfig {
 
     public float getFireOffset() {
         return fireOffset.getValue() / 20f;
+    }
+
+    public boolean getEnablePermanentHud() {
+        return enablePermanentHud.getValue();
+    }
+
+    public String getHudFormat() {
+        return hudFormat.getValue();
     }
 }

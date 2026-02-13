@@ -103,7 +103,15 @@ public final class OverGreen implements ClientModInitializer, ConfigEntryPoint {
                         .setName(Component.literal("Offset"))
                         .setTooltip(Component.literal("Controls offset of fire when burning. 0.1 is recommended."))
                         .setRange(0, 10, 1)
-                        .setValueFormatter(FORMATTER_20))));
+                        .setValueFormatter(FORMATTER_20))))
+            .addPage(builder.createOptionPage()
+                .setName(Component.literal("HUD"))
+                .addOption(config.enablePermanentHud.buildOption(builder, config, "enable_permanent_hud", false)
+                    .setName(Component.literal("Enable Permanent HUD"))
+                    .setTooltip(Component.literal("Controls permanent HUD.")))
+                .addOption(config.hudFormat.buildOption(builder, config, "hud_format", "{x} {y} {z} {size}")
+                    .setName(Component.literal("HUD Format"))
+                    .setTooltip(Component.literal("Set format for permanent HUD."))));
 
         config.flush();
     }

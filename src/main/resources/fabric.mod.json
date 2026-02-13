@@ -3,14 +3,14 @@
     "id": "overgreen",
     "version": "${version}",
     "name": "OverGreen",
-    "description": "Take vision of the game under control.",
+    "description": "Take view of the game under your control.",
     "authors": [
         "FN"
     ],
     "contact": {
-        "homepage": "I need to",
-        "issues": "And this.",
-        "sources": "fill this later."
+        "homepage": "https://modrinth.com/project/overgreen",
+        "issues": "https://github.com/FireNameFN/OverGreen/issues",
+        "sources": "https://github.com/FireNameFN/OverGreen"
     },
     "license": "MIT",
     "icon": "assets/overgreen/icon.png",

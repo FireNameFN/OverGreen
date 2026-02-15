@@ -5,6 +5,8 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.world.entity.Entity;
 
 public final class HudFormatter {
@@ -88,6 +90,11 @@ public final class HudFormatter {
             case "bz" -> (builder, entity) -> builder.append(entity.getBlockZ());
             case "dir" -> (builder, entity) -> builder.append(entity.getDirection().getName());
             case "day" -> (builder, entity) -> builder.append(entity.level().getDayTime() / 24000 + 1);
+            case "ping" -> (builder, entity) -> {
+                ClientPacketListener listener = Minecraft.getInstance().getConnection();
+
+                builder.append(listener.getPlayerInfo(listener.getLocalGameProfile().id()).getLatency());
+            };
             case "nl" -> new LineReplacer();
             default -> null;
         };

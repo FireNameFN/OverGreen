@@ -16,6 +16,7 @@ final class HudFormatScreen extends Screen {
         "{bx} {by} {bz} - block coordinates.",
         "{dir} - direction.",
         "{day} - current day.",
+        "{ping} - ping.",
         "{nl} - new line."
     };
 
@@ -41,13 +42,15 @@ final class HudFormatScreen extends Screen {
 
         edit.setValue(option.getValue());
 
-        Button cancelButton = Button.builder(Component.literal("Cancel"), button -> onClose())
+        Button cancelButton = Button.builder(Component.literal("Back"), button -> onClose())
             .bounds(x, y + 100, 80, 20)
             .build();
 
         Button undoButton = Button.builder(Component.literal("Undo"), button -> edit.setValue(option.getValue()))
             .bounds(x + 220, y + 100, 80, 20)
             .build();
+
+        undoButton.active = false;
 
         OnPress onSavePress = button -> {
             option.setValue(edit.getValue());
@@ -59,6 +62,8 @@ final class HudFormatScreen extends Screen {
         Button saveButton = Button.builder(Component.literal("Save"), onSavePress)
             .bounds(x + 320, y + 100, 80, 20)
             .build();
+
+        saveButton.active = false;
 
         edit.setResponder(format -> {
             boolean dirty = !format.equals(option.getValue());
@@ -78,7 +83,7 @@ final class HudFormatScreen extends Screen {
         super.render(graphics, mouseX, mouseY, delta);
 
         int x = width / 2 - 195;
-        int y = height / 2 - 25;
+        int y = height / 2 - 35;
 
         for(int i = 0; i < FORMAT_DESCRIPTION.length; i++)
             graphics.drawString(font, FORMAT_DESCRIPTION[i], x, y + i * font.lineHeight, CommonColors.WHITE);

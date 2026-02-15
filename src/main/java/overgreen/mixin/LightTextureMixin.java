@@ -2,15 +2,16 @@ package overgreen.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 
 import net.minecraft.client.renderer.LightTexture;
 import overgreen.OverGreen;
 
 @Mixin(LightTexture.class)
 abstract class LightTextureMixin {
-    @Redirect(method = "updateLightTexture", at = @At(value = "INVOKE", target = "Ljava/lang/Double;floatValue()F"))
-    private float multiplyGamma(Double value) {
-        return value.floatValue() * OverGreen.getConfig().getGammaMultiplier();
+    @ModifyExpressionValue(method = "updateLightTexture", at = @At(value = "INVOKE", target = "Ljava/lang/Double;floatValue()F", ordinal = 1))
+    private float multiplyGamma(float gamma) {
+        return gamma * OverGreen.getConfig().getGammaMultiplier();
     }
 }

@@ -18,8 +18,8 @@ import overgreen.OverGreen;
 @Mixin(DebugScreenOverlay.class)
 abstract class DebugScreenOverlayMixin {
     @ModifyExpressionValue(method = "render", at = @At(value = "INVOKE", target = "Ljava/util/Collection;isEmpty()Z"))
-    private boolean isEmptyPermanentHud(boolean original) {
-        return original && !shouldDisplayPermanentHud(Minecraft.getInstance());
+    private boolean isEmptyPermanentHud(boolean isEmpty) {
+        return isEmpty && !shouldDisplayPermanentHud(Minecraft.getInstance());
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/DebugScreenOverlay;getLevel()Lnet/minecraft/world/level/Level;"))

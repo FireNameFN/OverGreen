@@ -112,10 +112,13 @@ public final class OverGreen implements ClientModInitializer, ConfigEntryPoint {
                 .setName(Component.literal("HUD"))
                 .addOption(config.enablePermanentHud.buildOption(builder, config, "enable_permanent_hud", false)
                     .setName(Component.literal("Enable Permanent HUD"))
-                    .setTooltip(Component.literal("Controls permanent HUD.")))
+                    .setTooltip(Component.literal("Controls permanent HUD. It still may be hidden by option below.")))
                 .addOption(config.hudFormat.buildOption(builder, config, "hud_format", "{x} {y} {z} {dir}")
                     .setName(Component.literal("HUD Format"))
-                    .setTooltip(Component.literal("Set format for permanent HUD."))));
+                    .setTooltip(Component.literal("Set format for permanent HUD.")))
+                .addOption(config.forceReducedInfo.buildOption(builder, config, "force_reduced_info", false)
+                    .setName(Component.literal("Force Reduced Info"))
+                    .setTooltip(Component.literal("Hides permanent HUD and coordinates in debug overlay."))));
 
         config.flush();
     }

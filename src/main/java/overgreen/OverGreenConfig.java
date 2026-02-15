@@ -21,6 +21,8 @@ public final class OverGreenConfig {
 
     final HudFormatOption hudFormat = new HudFormatOption();
 
+    final BooleanOption forceReducedInfo = new BooleanOption();
+
     void dirty() {
         dirty = true;
     }
@@ -72,5 +74,9 @@ public final class OverGreenConfig {
 
     public String getHudFormat() {
         return hudFormat.getValue();
+    }
+
+    public boolean getForceReducedInfo() {
+        return forceReducedInfo.getValue();
     }
 }

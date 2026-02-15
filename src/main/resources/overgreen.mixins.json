@@ -6,6 +6,7 @@
         "DebugScreenOverlayMixin",
         "FogRendererMixin",
         "LightTextureMixin",
+        "MinecraftMixin",
         "ScreenEffectRendererMixin"
     ],
     "injectors": {

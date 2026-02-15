@@ -13,7 +13,7 @@ final class IntegerOption {
         return value;
     }
 
-    private void setValue(int value) {
+    public void setValue(int value) {
         this.value = value;
 
         config.dirty();

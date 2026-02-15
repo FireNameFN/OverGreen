@@ -13,7 +13,7 @@ final class BooleanOption {
         return value;
     }
 
-    private void setValue(boolean value) {
+    public void setValue(boolean value) {
         this.value = value;
 
         config.dirty();

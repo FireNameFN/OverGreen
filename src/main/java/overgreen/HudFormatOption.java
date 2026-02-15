@@ -18,6 +18,8 @@ final class HudFormatOption {
     public void setValue(String value) {
         this.value = value;
 
+        OverGreen.updateHudFormat(value);
+
         config.dirty();
         config.flush();
     }
@@ -27,6 +29,8 @@ final class HudFormatOption {
 
         if(config.isDirty())
             value = defaultValue;
+
+        OverGreen.updateHudFormat(value);
 
         return builder.createExternalButtonOption(Identifier.fromNamespaceAndPath(OverGreen.MOD_ID, id))
             .setScreenConsumer(this::createScreen);

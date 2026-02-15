@@ -5,6 +5,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.Entity;
 
 public final class OverGreen implements ClientModInitializer, ConfigEntryPoint {
     public static final String MOD_ID = "overgreen";
@@ -28,6 +30,8 @@ public final class OverGreen implements ClientModInitializer, ConfigEntryPoint {
     private static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+
+    private static final HudFormatter HUD_FORMATTER = new HudFormatter();
 
     private static OverGreenConfig config;
 
@@ -62,9 +66,9 @@ public final class OverGreen implements ClientModInitializer, ConfigEntryPoint {
 
     @Override
     public void registerConfigLate(ConfigBuilder builder) {
-        final RationalValueFormatter FORMATTER_10 = new RationalValueFormatter(0.1, "0.0");
+        RationalValueFormatter FORMATTER_10 = new RationalValueFormatter(0.1, "0.0");
 
-        final RationalValueFormatter FORMATTER_20 = new RationalValueFormatter(0.05, "0.00");
+        RationalValueFormatter FORMATTER_20 = new RationalValueFormatter(0.05, "0.00");
 
         builder.registerOwnModOptions()
             .setIcon(Identifier.fromNamespaceAndPath(MOD_ID, "icon_mono.png"))
@@ -109,7 +113,7 @@ public final class OverGreen implements ClientModInitializer, ConfigEntryPoint {
                 .addOption(config.enablePermanentHud.buildOption(builder, config, "enable_permanent_hud", false)
                     .setName(Component.literal("Enable Permanent HUD"))
                     .setTooltip(Component.literal("Controls permanent HUD.")))
-                .addOption(config.hudFormat.buildOption(builder, config, "hud_format", "{x} {y} {z} {size}")
+                .addOption(config.hudFormat.buildOption(builder, config, "hud_format", "{x} {y} {z} {dir}")
                     .setName(Component.literal("HUD Format"))
                     .setTooltip(Component.literal("Set format for permanent HUD."))));
 
@@ -118,5 +122,13 @@ public final class OverGreen implements ClientModInitializer, ConfigEntryPoint {
 
     public static OverGreenConfig getConfig() {
         return config;
+    }
+
+    public static void formatHud(List<String> list, Entity entity) {
+        HUD_FORMATTER.format(list, entity);
+    }
+
+    static void updateHudFormat(String format) {
+        HUD_FORMATTER.updateFormat(format);
     }
 }

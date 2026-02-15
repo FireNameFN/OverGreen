@@ -9,11 +9,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.CommonColors;
 
 final class HudFormatScreen extends Screen {
-    private static final String[] formatDescription = {
+    private static final String[] FORMAT_DESCRIPTION = {
         "Replacements:",
         "{x} {y} {z} - coordinates.",
-        "{bx} {by} {bz} - coordinates.",
-        "{side} - side of light (translate me pls)."
+        "{bx} {by} {bz} - block coordinates.",
+        "{dir} - direction.",
+        "{day} - current day.",
+        "{nl} - new line."
     };
 
     private final Screen parent;
@@ -33,6 +35,8 @@ final class HudFormatScreen extends Screen {
         int y = height / 2 - 60;
 
         EditBox edit = new EditBox(font, x, y, 400, 20, Component.literal("Format"));
+
+        edit.setMaxLength(128);
 
         edit.setValue(option.getValue());
 
@@ -75,8 +79,8 @@ final class HudFormatScreen extends Screen {
         int x = width / 2 - 195;
         int y = height / 2 - 25;
 
-        for(int i = 0; i < formatDescription.length; i++)
-            graphics.drawString(font, formatDescription[i], x, y + i * font.lineHeight, CommonColors.LIGHT_GRAY);
+        for(int i = 0; i < FORMAT_DESCRIPTION.length; i++)
+            graphics.drawString(font, FORMAT_DESCRIPTION[i], x, y + i * font.lineHeight, CommonColors.WHITE);
     }
 
     @Override

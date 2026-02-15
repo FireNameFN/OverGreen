@@ -19,7 +19,7 @@ public final class OverGreenKeyHandler implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        KeyMapping toggleForceReducedInfoKey = KeyBindingHelper.registerKeyBinding(new KeyMapping("toggle_force_reduced_info", GLFW.GLFW_KEY_EQUAL, CATEGORY));
+        KeyMapping toggleForceReducedInfoKey = KeyBindingHelper.registerKeyBinding(new KeyMapping("key.overgreen.toggle_force_reduced_info", GLFW.GLFW_KEY_EQUAL, CATEGORY));
 
         ClientTickEvents.END_CLIENT_TICK.register(minecraft -> {
             if(!toggleForceReducedInfoKey.isDown()) {

@@ -82,6 +82,12 @@ public final class HudFormatter {
         }
 
         return switch(key) {
+            case "fps" -> (builder, entity) -> builder.append(Minecraft.getInstance().getFps());
+            case "ping" -> (builder, entity) -> {
+                ClientPacketListener listener = Minecraft.getInstance().getConnection();
+
+                builder.append(listener.getPlayerInfo(listener.getLocalGameProfile().id()).getLatency());
+            };
             case "x" -> new DoubleReplacer(format, entity -> entity.getX());
             case "y" -> new DoubleReplacer(format, entity -> entity.getY());
             case "z" -> new DoubleReplacer(format, entity -> entity.getZ());
@@ -90,11 +96,6 @@ public final class HudFormatter {
             case "bz" -> (builder, entity) -> builder.append(entity.getBlockZ());
             case "dir" -> (builder, entity) -> builder.append(entity.getDirection().getName());
             case "day" -> (builder, entity) -> builder.append(entity.level().getDayTime() / 24000 + 1);
-            case "ping" -> (builder, entity) -> {
-                ClientPacketListener listener = Minecraft.getInstance().getConnection();
-
-                builder.append(listener.getPlayerInfo(listener.getLocalGameProfile().id()).getLatency());
-            };
             case "nl" -> new LineReplacer();
             default -> null;
         };

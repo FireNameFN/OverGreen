@@ -11,12 +11,12 @@ import net.minecraft.util.CommonColors;
 final class HudFormatScreen extends Screen {
     private static final String[] FORMAT_DESCRIPTION = {
         "Replacements:",
+        "{fps} {ping} - FPS and ping.",
         "{x} {y} {z} - coordinates.",
         "{x:0.0} {y:0.00} {z:0.000} - coordinates with custom format.",
         "{bx} {by} {bz} - block coordinates.",
         "{dir} - direction.",
         "{day} - current day.",
-        "{ping} - ping.",
         "{nl} - new line."
     };
 

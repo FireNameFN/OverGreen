@@ -7,6 +7,7 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.world.entity.Entity;
 
 public final class HudFormatter {
@@ -86,7 +87,15 @@ public final class HudFormatter {
             case "ping" -> (builder, entity) -> {
                 ClientPacketListener listener = Minecraft.getInstance().getConnection();
 
-                builder.append(listener.getPlayerInfo(listener.getLocalGameProfile().id()).getLatency());
+                PlayerInfo player = listener.getPlayerInfo(listener.getLocalGameProfile().id());
+
+                if(player == null) {
+                    builder.append('-');
+
+                    return;
+                }
+
+                builder.append(player.getLatency());
             };
             case "x" -> new DoubleReplacer(format, entity -> entity.getX());
             case "y" -> new DoubleReplacer(format, entity -> entity.getY());

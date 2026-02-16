@@ -19,3 +19,5 @@ jobs:
       uses: gradle/actions/setup-gradle@v5
     - name: Modrinth
       run: ./gradlew modrinth
+      env:
+        MODRINTH_TOKEN: "${{ secrets.MODRINTH_TOKEN }}"

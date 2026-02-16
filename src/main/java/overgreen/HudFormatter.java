@@ -10,7 +10,7 @@ import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.world.entity.Entity;
 
-public final class HudFormatter {
+final class HudFormatter {
     private final StringBuilder builder = new StringBuilder();
 
     private Replacer[][] replacers;

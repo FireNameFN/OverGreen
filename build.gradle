@@ -50,11 +50,7 @@ java {
 }
 
 jar {
-    inputs.property "archivesName", project.base.archivesName
-
-    from("LICENSE.txt") {
-        rename { "LICENSE_${inputs.properties.archivesName}.txt" }
-    }
+    from "LICENSE.txt"
 }
 
 modrinth {

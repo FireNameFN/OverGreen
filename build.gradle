@@ -57,8 +57,8 @@ modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     projectId = "overgreen"
     versionNumber = project.version
-    uploadFile = "remapJar"
-    debugMode = true
+    versionName = "OverGreen v${project.version}"
+    uploadFile = remapJar
 
     dependencies {
         required.project "fabric-api"

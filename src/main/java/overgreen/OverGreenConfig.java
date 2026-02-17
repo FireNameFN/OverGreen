@@ -37,7 +37,7 @@ public final class OverGreenConfig {
 
         dirty = false;
 
-        OverGreen.saveConfig();
+        OverGreenConfigManager.saveConfig();
     }
 
     public float getGammaMultiplier() {

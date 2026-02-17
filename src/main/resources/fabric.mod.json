@@ -17,11 +17,10 @@
     "environment": "client",
     "entrypoints": {
         "client": [
-            "overgreen.OverGreen",
-            "overgreen.OverGreenKeyHandler"
+            "overgreen.OverGreenInitializer"
         ],
         "sodium:config_api_user": [
-            "overgreen.OverGreen"
+            "overgreen.OverGreenInitializer"
         ]
     },
     "mixins": [

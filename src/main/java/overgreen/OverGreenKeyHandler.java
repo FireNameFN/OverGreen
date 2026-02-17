@@ -2,70 +2,71 @@ package overgreen;
 
 import org.lwjgl.glfw.GLFW;
 
-import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 
-public final class OverGreenKeyHandler implements ClientModInitializer {
-    public static final KeyMapping.Category CATEGORY = new KeyMapping.Category(Identifier.fromNamespaceAndPath(OverGreen.MOD_ID, "category"));
+final class OverGreenKeyHandler {
+    private static final KeyMapping.Category CATEGORY = new KeyMapping.Category(Identifier.fromNamespaceAndPath(OverGreen.MOD_ID, "category"));
+
+    private static final KeyMapping TOGGLE_FORCE_REDUCED_INFO_KEY = KeyBindingHelper.registerKeyBinding(new KeyMapping("key.overgreen.toggle_force_reduced_info", GLFW.GLFW_KEY_EQUAL, CATEGORY));
 
     private static int toggleForceReducedInfoKeyPressedTicks;
 
-    @Override
-    public void onInitializeClient() {
-        KeyMapping toggleForceReducedInfoKey = KeyBindingHelper.registerKeyBinding(new KeyMapping("key.overgreen.toggle_force_reduced_info", GLFW.GLFW_KEY_EQUAL, CATEGORY));
+    public static void initialize() {
+        ClientTickEvents.END_CLIENT_TICK.register(OverGreenKeyHandler::onEndClientTick);
+    }
 
-        ClientTickEvents.END_CLIENT_TICK.register(minecraft -> {
-            if(!toggleForceReducedInfoKey.isDown()) {
-                toggleForceReducedInfoKeyPressedTicks = 0;
+    private static void onEndClientTick(Minecraft minecraft) {
+        if(!TOGGLE_FORCE_REDUCED_INFO_KEY.isDown()) {
+            toggleForceReducedInfoKeyPressedTicks = 0;
 
-                return;
+            return;
+        }
+
+        if(toggleForceReducedInfoKeyPressedTicks < 0)
+            return;
+
+        OverGreenConfig config = OverGreen.getConfig();
+
+        if(config.forceReducedInfo.getValue()) {
+            if(toggleForceReducedInfoKeyPressedTicks == 0) {
+                minecraft.gui.getChat().addMessage(Component.empty()
+                    .append(Component.literal("[OverGreen]").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD))
+                    .append(CommonComponents.SPACE)
+                    .append(Component.literal("Disabling to force reduced info in 2 seconds...").withStyle(ChatFormatting.RED)));
             }
 
-            if(toggleForceReducedInfoKeyPressedTicks < 0)
+            if(++toggleForceReducedInfoKeyPressedTicks < 40)
                 return;
+        }
 
-            OverGreenConfig config = OverGreen.getConfig();
+        toggleForceReducedInfoKeyPressedTicks = -1;
 
-            if(config.forceReducedInfo.getValue()) {
-                if(toggleForceReducedInfoKeyPressedTicks == 0) {
-                    minecraft.gui.getChat().addMessage(Component.empty()
-                        .append(Component.literal("[OverGreen]").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD))
-                        .append(CommonComponents.SPACE)
-                        .append(Component.literal("Disabling to force reduced info in 2 seconds...").withStyle(ChatFormatting.RED)));
-                }
+        boolean force = !config.forceReducedInfo.getValue();
 
-                if(++toggleForceReducedInfoKeyPressedTicks < 40)
-                    return;
-            }
+        config.forceReducedInfo.setValue(force);
 
-            toggleForceReducedInfoKeyPressedTicks = -1;
+        config.flush();
 
-            boolean force = !config.forceReducedInfo.getValue();
+        MutableComponent component = Component.empty()
+            .append(Component.literal("[OverGreen]").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD))
+            .append(CommonComponents.SPACE)
+            .append(Component.literal("Reduced info is "));
 
-            config.forceReducedInfo.setValue(force);
+        if(force)
+            component.append(Component.literal("forced").withStyle(ChatFormatting.GREEN));
+        else
+            component.append(Component.literal("not forced").withStyle(ChatFormatting.RED));
 
-            config.flush();
+        component.append(Component.literal("."));
 
-            MutableComponent component = Component.empty()
-                .append(Component.literal("[OverGreen]").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD))
-                .append(CommonComponents.SPACE)
-                .append(Component.literal("Reduced info is "));
-
-            if(force)
-                component.append(Component.literal("forced").withStyle(ChatFormatting.GREEN));
-            else
-                component.append(Component.literal("not forced").withStyle(ChatFormatting.RED));
-
-            component.append(Component.literal("."));
-
-            minecraft.gui.getChat().addMessage(component);
-        });
+        minecraft.gui.getChat().addMessage(component);
     }
 }

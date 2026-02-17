@@ -16,7 +16,7 @@ final class HudFormatter {
     private Replacer[][] replacers;
 
     public void updateFormat(String format) {
-        ArrayList<ArrayList<Replacer>> lists = new ArrayList<>();
+        ArrayList<Replacer[]> lists = new ArrayList<>();
 
         ArrayList<Replacer> list = new ArrayList<>();
 
@@ -40,7 +40,7 @@ final class HudFormatter {
             closeIndex++;
 
             if(replacer instanceof LineReplacer) {
-                lists.add(list);
+                lists.add(list.toArray(Replacer[]::new));
 
                 list = new ArrayList<>();
             } else if(replacer == null)
@@ -54,14 +54,9 @@ final class HudFormatter {
         addFlat(list, format, position, format.length());
 
         if(list.size() > 0)
-            lists.add(list);
+            lists.add(list.toArray(Replacer[]::new));
 
-        Replacer[][] array = new Replacer[lists.size()][];
-
-        for(int i = 0; i < array.length; i++)
-            array[i] = lists.get(i).toArray(Replacer[]::new);
-
-        replacers = array;
+        replacers = lists.toArray(Replacer[][]::new);
     }
 
     private static void addFlat(ArrayList<Replacer> list, String str, int start, int end) {

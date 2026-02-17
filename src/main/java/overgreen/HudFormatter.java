@@ -83,37 +83,42 @@ final class HudFormatter {
         }
 
         return switch(key) {
-            case "fps" -> (builder, entity) -> builder.append(Minecraft.getInstance().getFps());
-            case "ping" -> (builder, entity) -> {
+            case "fps" -> (builder, entity, reduced) -> builder.append(Minecraft.getInstance().getFps());
+            case "ping" -> (builder, entity, reduced) -> {
                 ClientPacketListener listener = Minecraft.getInstance().getConnection();
 
                 PlayerInfo player = listener.getPlayerInfo(listener.getLocalGameProfile().id());
 
                 if(player == null) {
                     builder.append('-');
-
                     return;
                 }
 
                 builder.append(player.getLatency());
             };
-            case "x" -> new DoubleReplacer(format, entity -> entity.getX());
-            case "y" -> new DoubleReplacer(format, entity -> entity.getY());
-            case "z" -> new DoubleReplacer(format, entity -> entity.getZ());
-            case "bx" -> (builder, entity) -> builder.append(entity.getBlockX());
-            case "by" -> (builder, entity) -> builder.append(entity.getBlockY());
-            case "bz" -> (builder, entity) -> builder.append(entity.getBlockZ());
-            case "dir" -> (builder, entity) -> builder.append(entity.getDirection().getName());
-            case "day" -> (builder, entity) -> builder.append(entity.level().getDayTime() / 24000 + 1);
+            case "x" -> new ReducedDoubleReplacer(format, entity -> entity.getX());
+            case "y" -> new ReducedDoubleReplacer(format, entity -> entity.getY());
+            case "z" -> new ReducedDoubleReplacer(format, entity -> entity.getZ());
+            case "bx" -> (ReducedReplacer)(builder, entity) -> builder.append(entity.getBlockX());
+            case "by" -> (ReducedReplacer)(builder, entity) -> builder.append(entity.getBlockY());
+            case "bz" -> (ReducedReplacer)(builder, entity) -> builder.append(entity.getBlockZ());
+            case "dir" -> (Replacer)(builder, entity, reduced) -> builder.append(entity.getDirection().getName());
+            case "day" -> (Replacer)(builder, entity, reduced) -> builder.append(entity.level().getDayTime() / 24000 + 1);
             case "nl" -> new LineReplacer();
             default -> null;
         };
     }
 
-    public void format(List<String> list, Entity entity) {
+    public void format(List<String> list) {
+        Minecraft minecraft = Minecraft.getInstance();
+
+        Entity entity = minecraft.getCameraEntity();
+
+        boolean reduced = minecraft.showOnlyReducedInfo();
+
         for(Replacer[] lineReplacers : replacers) {
             for(Replacer replacer : lineReplacers)
-                replacer.replace(builder, entity);
+                replacer.replace(builder, entity, reduced);
 
             list.add(builder.toString());
 
@@ -129,21 +134,22 @@ final class HudFormatter {
         }
 
         @Override
-        public void replace(StringBuilder builder, Entity entity) {
+        public void replace(StringBuilder builder, Entity entity, boolean reduced) {
             builder.append(str);
         }
     }
 
-    private static class DoubleReplacer implements Replacer {
+    private static class ReducedDoubleReplacer implements ReducedReplacer {
         private final NumberFormat format;
 
         private final RawDoubleReplacer replacer;
 
-        public DoubleReplacer(NumberFormat format, RawDoubleReplacer replacer) {
+        public ReducedDoubleReplacer(NumberFormat format, RawDoubleReplacer replacer) {
             this.format = format;
             this.replacer = replacer;
         }
 
+        @Override
         public void replace(StringBuilder builder, Entity entity) {
             builder.append(format.format(replacer.replace(entity)));
         }
@@ -153,11 +159,25 @@ final class HudFormatter {
         }
     }
 
+    private static interface ReducedReplacer extends Replacer {
+        @Override
+        public default void replace(StringBuilder builder, Entity entity, boolean reduced) {
+            if(reduced) {
+                builder.append('-');
+                return;
+            }
+
+            replace(builder, entity);
+        }
+
+        public void replace(StringBuilder builder, Entity entity);
+    }
+
     private static class LineReplacer implements Replacer {
-        public void replace(StringBuilder builder, Entity entity) { }
+        public void replace(StringBuilder builder, Entity entity, boolean reduced) { }
     }
 
     private static interface Replacer {
-        public void replace(StringBuilder builder, Entity entity);
+        public void replace(StringBuilder builder, Entity entity, boolean reduced);
     }
 }

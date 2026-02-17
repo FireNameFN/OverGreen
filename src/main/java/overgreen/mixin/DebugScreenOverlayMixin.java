@@ -12,36 +12,28 @@ import com.llamalad7.mixinextras.sugar.Local;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.DebugScreenOverlay;
-import net.minecraft.world.entity.Entity;
 import overgreen.OverGreen;
 
 @Mixin(DebugScreenOverlay.class)
 abstract class DebugScreenOverlayMixin {
-    @ModifyExpressionValue(method = "render", at = @At(value = "INVOKE", target = "Ljava/util/Collection;isEmpty()Z"))
+    @ModifyExpressionValue(method = "render", at = @At(value = "INVOKE", target = "Ljava/util/Collection;isEmpty()Z", ordinal = 0))
     private boolean isEmptyPermanentHud(boolean isEmpty) {
-        return isEmpty && !shouldDisplayPermanentHud(Minecraft.getInstance());
+        return isEmpty && !shouldDisplayPermanentHud();
     }
 
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/DebugScreenOverlay;getLevel()Lnet/minecraft/world/level/Level;"))
+    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/DebugScreenOverlay;getLevel()Lnet/minecraft/world/level/Level;"), allow = 1)
     private void displayPermanentHud(CallbackInfo callback, @Local(ordinal = 0) List<String> list) {
+        if(shouldDisplayPermanentHud())
+            OverGreen.formatHud(list);
+    }
+
+    private static boolean shouldDisplayPermanentHud() {
         Minecraft minecraft = Minecraft.getInstance();
 
-        if(!shouldDisplayPermanentHud(minecraft))
-            return;
-
-        Entity entity = minecraft.getCameraEntity();
-
-        if(entity == null)
-            return;
-
-        OverGreen.formatHud(list, entity);
-    }
-
-    private static final boolean shouldDisplayPermanentHud(Minecraft minecraft) {
-        if(minecraft.showOnlyReducedInfo())
+        if(minecraft.debugEntries.isOverlayVisible())
             return false;
 
-        if(minecraft.debugEntries.isOverlayVisible())
+        if(minecraft.getCameraEntity() == null)
             return false;
 
         return true;

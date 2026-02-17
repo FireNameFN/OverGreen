@@ -20,7 +20,6 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.entity.Entity;
 
 public final class OverGreen implements ClientModInitializer, ConfigEntryPoint {
     public static final String MOD_ID = "overgreen";
@@ -127,8 +126,8 @@ public final class OverGreen implements ClientModInitializer, ConfigEntryPoint {
         return config;
     }
 
-    public static void formatHud(List<String> list, Entity entity) {
-        HUD_FORMATTER.format(list, entity);
+    public static void formatHud(List<String> list) {
+        HUD_FORMATTER.format(list);
     }
 
     static void updateHudFormat(String format) {

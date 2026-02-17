@@ -21,7 +21,7 @@ import overgreen.OverGreenConfig;
 
 @Mixin(FogRenderer.class)
 abstract class FogRendererMixin {
-    @ModifyVariable(method = "setupFog", at = @At("STORE"))
+    @ModifyVariable(method = "setupFog", at = @At("STORE"), allow = 1)
     private FogType disableWaterFog(FogType type) {
         if(type == FogType.WATER && OverGreen.getConfig().getDisableWaterFog())
             return FogType.ATMOSPHERIC;
@@ -29,7 +29,7 @@ abstract class FogRendererMixin {
         return type;
     }
 
-    @Redirect(method = "setupFog", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/fog/environment/FogEnvironment;setupFog(Lnet/minecraft/client/renderer/fog/FogData;Lnet/minecraft/client/Camera;Lnet/minecraft/client/multiplayer/ClientLevel;FLnet/minecraft/client/DeltaTracker;)V"))
+    @Redirect(method = "setupFog", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/fog/environment/FogEnvironment;setupFog(Lnet/minecraft/client/renderer/fog/FogData;Lnet/minecraft/client/Camera;Lnet/minecraft/client/multiplayer/ClientLevel;FLnet/minecraft/client/DeltaTracker;)V"), allow = 1)
     private void disableAtmosphericFog(FogEnvironment environment, FogData fog, Camera camera, ClientLevel level, float distance, DeltaTracker delta, @Local(ordinal = 2) LocalFloatRef distanceRef) {
         environment.setupFog(fog, camera, level, distance, delta);
 

@@ -1,12 +1,17 @@
 package overgreen;
 
+import java.io.IOException;
+
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+
 import net.caffeinemc.mods.sodium.api.config.structure.ConfigBuilder;
 import net.caffeinemc.mods.sodium.api.config.structure.ExternalButtonOptionBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.resources.Identifier;
 
-final class HudFormatOption {
+final class HudFormatOption implements Option {
     private transient OverGreenConfig config;
 
     private String value;
@@ -22,6 +27,16 @@ final class HudFormatOption {
 
         config.dirty();
         config.flush();
+    }
+
+    @Override
+    public void write(JsonWriter writer) throws IOException {
+        writer.value(value);
+    }
+
+    @Override
+    public void read(JsonReader reader) throws IOException {
+        value = reader.nextString();
     }
 
     public ExternalButtonOptionBuilder buildOption(ConfigBuilder builder, OverGreenConfig config, String id, String defaultValue) {

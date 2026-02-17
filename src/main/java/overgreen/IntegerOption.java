@@ -1,10 +1,15 @@
 package overgreen;
 
+import java.io.IOException;
+
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+
 import net.caffeinemc.mods.sodium.api.config.structure.ConfigBuilder;
 import net.caffeinemc.mods.sodium.api.config.structure.IntegerOptionBuilder;
 import net.minecraft.resources.Identifier;
 
-final class IntegerOption {
+final class IntegerOption implements Option {
     private transient OverGreenConfig config;
 
     private int value;
@@ -17,6 +22,16 @@ final class IntegerOption {
         this.value = value;
 
         config.dirty();
+    }
+
+    @Override
+    public void write(JsonWriter writer) throws IOException {
+        writer.value(value);
+    }
+
+    @Override
+    public void read(JsonReader reader) throws IOException {
+        value = reader.nextInt();
     }
 
     public IntegerOptionBuilder buildOption(ConfigBuilder builder, OverGreenConfig config, String id, int defaultValue) {

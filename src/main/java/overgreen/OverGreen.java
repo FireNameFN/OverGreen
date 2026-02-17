@@ -7,9 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
@@ -26,9 +23,11 @@ public final class OverGreen implements ClientModInitializer, ConfigEntryPoint {
 
     public static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("overgreen.json");
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final Gson GSON = new GsonBuilder()
+        .registerTypeAdapter(BooleanOption.class, new OptionAdapter(BooleanOption::new))
+        .registerTypeAdapter(IntegerOption.class, new OptionAdapter(IntegerOption::new))
+        .registerTypeAdapter(HudFormatOption.class, new OptionAdapter(HudFormatOption::new))
+        .setPrettyPrinting().create();
 
     private static final HudFormatter HUD_FORMATTER = new HudFormatter();
 
@@ -51,7 +50,7 @@ public final class OverGreen implements ClientModInitializer, ConfigEntryPoint {
         try(Reader reader = Files.newBufferedReader(CONFIG_PATH)) {
             config = GSON.fromJson(reader, OverGreenConfig.class);
         } catch(IOException | JsonSyntaxException e) {
-            LOGGER.error("Failed to load config", e);
+            throw new RuntimeException("Failed to load config", e);
         }
     }
 
@@ -59,7 +58,7 @@ public final class OverGreen implements ClientModInitializer, ConfigEntryPoint {
         try(Writer writer = Files.newBufferedWriter(CONFIG_PATH)) {
             GSON.toJson(config, writer);
         } catch(IOException e) {
-            LOGGER.error("Failed to save config", e);
+            throw new RuntimeException("Failed to save config", e);
         }
     }
 

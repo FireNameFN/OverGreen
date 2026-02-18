@@ -3,6 +3,7 @@ package overgreen.mixin;
 import java.util.List;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -27,6 +28,7 @@ abstract class DebugScreenOverlayMixin {
             OverGreen.formatHud(list);
     }
 
+    @Unique
     private static boolean shouldDisplayPermanentHud() {
         Minecraft minecraft = Minecraft.getInstance();
 

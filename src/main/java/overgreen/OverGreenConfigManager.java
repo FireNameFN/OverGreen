@@ -101,13 +101,18 @@ final class OverGreenConfigManager {
                 .setName(Component.literal("HUD"))
                 .addOption(config.enablePermanentHud.buildOption(builder, config, "enable_permanent_hud", false)
                     .setName(Component.literal("Enable Permanent HUD"))
-                    .setTooltip(Component.literal("Controls permanent HUD. It still may be hidden by option below.")))
+                    .setTooltip(Component.literal("Controls permanent HUD.")))
                 .addOption(config.hudFormat.buildOption(builder, config, "hud_format", "{x} {y} {z} {dir}")
                     .setName(Component.literal("HUD Format"))
                     .setTooltip(Component.literal("Set format for permanent HUD.")))
                 .addOption(config.forceReducedInfo.buildOption(builder, config, "force_reduced_info", false)
                     .setName(Component.literal("Force Reduced Info"))
-                    .setTooltip(Component.literal("Hides permanent HUD and coordinates in debug overlay. Can be binded in key bindings menu."))));
+                    .setTooltip(Component.literal("Hides coordinates in permanent HUD and debug overlay. Can be binded in key bindings menu."))))
+            .addPage(builder.createOptionPage()
+                .setName(Component.literal("Utilities"))
+                .addOption(config.showContainerTooltip.buildOption(builder, config, "show_container_tooltip", false)
+                    .setName(Component.literal("Show Container Tooltip"))
+                    .setTooltip(Component.literal("Show better tooltip for containers like shulker boxes."))));
 
         config.flush();
     }

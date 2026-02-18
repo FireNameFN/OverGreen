@@ -10,7 +10,7 @@ import overgreen.OverGreen;
 
 @Mixin(Minecraft.class)
 abstract class MinecraftMixin {
-    @Inject(method = "showOnlyReducedInfo", at = @At(value = "HEAD"), cancellable = true)
+    @Inject(method = "showOnlyReducedInfo", at = @At(value = "HEAD"), cancellable = true, allow = 1)
     private void forceReducedInfo(CallbackInfoReturnable<Boolean> callback) {
         if(OverGreen.getConfig().getForceReducedInfo())
             callback.setReturnValue(true);

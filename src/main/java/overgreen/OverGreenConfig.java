@@ -23,6 +23,8 @@ public final class OverGreenConfig {
 
     final BooleanOption forceReducedInfo = new BooleanOption();
 
+    final BooleanOption showContainerTooltip = new BooleanOption();
+
     void dirty() {
         dirty = true;
     }
@@ -78,5 +80,9 @@ public final class OverGreenConfig {
 
     public boolean getForceReducedInfo() {
         return forceReducedInfo.getValue();
+    }
+
+    public boolean getShowContainerTooltip() {
+        return showContainerTooltip.getValue();
     }
 }

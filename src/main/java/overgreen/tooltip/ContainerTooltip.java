@@ -1,4 +1,4 @@
-package overgreen;
+package overgreen.tooltip;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;

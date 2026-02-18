@@ -1,4 +1,4 @@
-package overgreen;
+package overgreen.tooltip;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
+import overgreen.OverGreen;
 
 public class ClientContainerTooltip implements ClientTooltipComponent {
     private static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath(OverGreen.MOD_ID, "textures/gui/container/tooltip/background.png");

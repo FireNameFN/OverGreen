@@ -7,8 +7,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
-import overgreen.ClientContainerTooltip;
-import overgreen.ContainerTooltip;
+import overgreen.tooltip.ClientContainerTooltip;
+import overgreen.tooltip.ContainerTooltip;
 
 @Mixin(ClientTooltipComponent.class)
 interface ClientTooltipComponentMixin {

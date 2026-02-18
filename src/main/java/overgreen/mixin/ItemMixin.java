@@ -14,8 +14,8 @@ import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
-import overgreen.ContainerTooltip;
 import overgreen.OverGreen;
+import overgreen.tooltip.ContainerTooltip;
 
 @Mixin(Item.class)
 abstract class ItemMixin {

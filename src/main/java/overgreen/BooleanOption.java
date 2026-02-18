@@ -40,9 +40,12 @@ final class BooleanOption implements Option {
         if(config.isDirty())
             value = defaultValue;
 
-        return builder.createBooleanOption(Identifier.fromNamespaceAndPath(OverGreen.MOD_ID, id))
-            .setStorageHandler(config::flush)
+        BooleanOptionBuilder optionBuilder = builder.createBooleanOption(Identifier.fromNamespaceAndPath(OverGreen.MOD_ID, id))
             .setBinding(this::setValue, this::getValue)
             .setDefaultValue(defaultValue);
+
+        config.buildOption(optionBuilder, id);
+
+        return optionBuilder;
     }
 }

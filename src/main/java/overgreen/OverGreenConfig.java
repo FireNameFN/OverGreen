@@ -1,5 +1,9 @@
 package overgreen;
 
+import net.caffeinemc.mods.sodium.api.config.structure.OptionBuilder;
+import net.caffeinemc.mods.sodium.api.config.structure.StatefulOptionBuilder;
+import net.minecraft.network.chat.Component;
+
 public final class OverGreenConfig {
     private transient boolean dirty;
 
@@ -40,6 +44,20 @@ public final class OverGreenConfig {
         dirty = false;
 
         OverGreenConfigManager.saveConfig();
+    }
+
+    void buildOptionText(OptionBuilder builder, String id) {
+        String key = "overgreen.config." + id;
+
+        builder
+            .setName(Component.translatable(key))
+            .setTooltip(Component.translatable(key + ".tooltip"));
+    }
+
+    <T> void buildOption(StatefulOptionBuilder<T> builder, String id) {
+        buildOptionText(builder, id);
+
+        builder.setStorageHandler(this::flush);
     }
 
     public float getGammaMultiplier() {

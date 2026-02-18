@@ -40,9 +40,12 @@ final class IntegerOption implements Option {
         if(config.isDirty())
             value = defaultValue;
 
-        return builder.createIntegerOption(Identifier.fromNamespaceAndPath(OverGreen.MOD_ID, id))
-            .setStorageHandler(config::flush)
+        IntegerOptionBuilder optionBuilder = builder.createIntegerOption(Identifier.fromNamespaceAndPath(OverGreen.MOD_ID, id))
             .setBinding(this::setValue, this::getValue)
             .setDefaultValue(defaultValue);
+
+        config.buildOption(optionBuilder, id);
+
+        return optionBuilder;
     }
 }

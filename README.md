@@ -12,7 +12,6 @@ Dependencies: Fabric API, Sodium.
 ### Features
 
 - Modifying gamma
-- Decreasing UI fire when burning
 - Disabling fog:
   - Overworld fog
   - Nether fog
@@ -20,6 +19,8 @@ Dependencies: Fabric API, Sodium.
   - Water fog
 - Customizable permanent HUD
 - Hotkey for hiding coordinates from F3 overlay
+- Better tooltip for containers like shulker boxes
+- Decreasing UI fire when burning
 
 ### Gallery
 

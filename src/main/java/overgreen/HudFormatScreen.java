@@ -9,11 +9,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.CommonColors;
 
 final class HudFormatScreen extends Screen {
-    private static final Component TITLE = Component.translatable("overgreen.config.hud_format.screen.title");
-    private static final Component EDIT_BOX = Component.translatable("overgreen.config.hud_format.screen.edit");
-    private static final Component BACK_BUTTON = Component.translatable("overgreen.config.hud_format.screen.back");
-    private static final Component UNDO_BUTTON = Component.translatable("overgreen.config.hud_format.screen.undo");
-    private static final Component SAVE_BUTTON = Component.translatable("overgreen.config.hud_format.screen.save");
     private static final Component FORMAT_DESCRIPTION = Component.translatable("overgreen.config.hud_format.screen.description");
 
     private final Screen parent;
@@ -27,7 +22,7 @@ final class HudFormatScreen extends Screen {
     private int layoutHeight;
 
     public HudFormatScreen(Screen parent, HudFormatOption option) {
-        super(TITLE);
+        super(Component.translatable("overgreen.config.hud_format.screen.title"));
 
         this.parent = parent;
         this.option = option;
@@ -42,7 +37,7 @@ final class HudFormatScreen extends Screen {
         layoutX = width / 2 - 200;
         layoutY = (height - layoutHeight) / 2;
 
-        EditBox edit = new EditBox(font, layoutX, layoutY, 400, 20, EDIT_BOX);
+        EditBox edit = new EditBox(font, layoutX, layoutY, 400, 20, Component.translatable("overgreen.config.hud_format.screen.edit"));
 
         edit.setMaxLength(128);
 
@@ -50,11 +45,11 @@ final class HudFormatScreen extends Screen {
 
         int y = layoutY + descriptionHeight + 30;
 
-        Button cancelButton = Button.builder(BACK_BUTTON, button -> onClose())
+        Button cancelButton = Button.builder(Component.translatable("overgreen.config.hud_format.screen.back"), button -> onClose())
             .bounds(layoutX, y, 80, 20)
             .build();
 
-        Button undoButton = Button.builder(UNDO_BUTTON, button -> edit.setValue(option.getValue()))
+        Button undoButton = Button.builder(Component.translatable("overgreen.config.hud_format.screen.undo"), button -> edit.setValue(option.getValue()))
             .bounds(layoutX + 220, y, 80, 20)
             .build();
 
@@ -67,7 +62,7 @@ final class HudFormatScreen extends Screen {
             button.active = false;
         };
 
-        Button saveButton = Button.builder(SAVE_BUTTON, onSavePress)
+        Button saveButton = Button.builder(Component.translatable("overgreen.config.hud_format.screen.save"), onSavePress)
             .bounds(layoutX + 320, y, 80, 20)
             .build();
 

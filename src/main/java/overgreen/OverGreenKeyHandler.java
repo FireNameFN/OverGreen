@@ -15,11 +15,6 @@ final class OverGreenKeyHandler {
 
     private static final KeyMapping TOGGLE_FORCE_REDUCED_INFO_KEY = KeyBindingHelper.registerKeyBinding(new KeyMapping("key.overgreen.toggle_force_reduced_info", GLFW.GLFW_KEY_EQUAL, CATEGORY));
 
-    private static final Component CHAT_PREFIX = Component.translatable("overgreen.chat.prefix").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD);
-    private static final Component CHAT_WARNING = Component.translatable("overgreen.chat.toggle_force_reduced_info.warning").withStyle(ChatFormatting.RED);
-    private static final Component CHAT_FORCED = Component.translatable("overgreen.chat.toggle_force_reduced_info.forced").withStyle(ChatFormatting.RED);
-    private static final Component CHAT_NOT_FORCED = Component.translatable("overgreen.chat.toggle_force_reduced_info.not_forced").withStyle(ChatFormatting.GREEN);
-
     private static int toggleForceReducedInfoKeyPressedTicks;
 
     public static void initialize() {
@@ -40,7 +35,7 @@ final class OverGreenKeyHandler {
 
         if(config.forceReducedInfo.getValue()) {
             if(toggleForceReducedInfoKeyPressedTicks == 0)
-                addMessage(minecraft, CHAT_WARNING);
+                addMessage(minecraft, Component.translatable("overgreen.chat.toggle_force_reduced_info.warning").withStyle(ChatFormatting.RED));
 
             if(++toggleForceReducedInfoKeyPressedTicks < 40)
                 return;
@@ -54,12 +49,14 @@ final class OverGreenKeyHandler {
 
         config.flush();
 
-        addMessage(minecraft, Component.translatable("overgreen.chat.toggle_force_reduced_info.message", force ? CHAT_FORCED : CHAT_NOT_FORCED));
+        addMessage(minecraft, Component.translatable("overgreen.chat.toggle_force_reduced_info.message", force
+            ? Component.translatable("overgreen.chat.toggle_force_reduced_info.forced").withStyle(ChatFormatting.RED)
+            : Component.translatable("overgreen.chat.toggle_force_reduced_info.not_forced").withStyle(ChatFormatting.GREEN)));
     }
 
     private static void addMessage(Minecraft minecraft, Component component) {
         minecraft.gui.getChat().addMessage(Component.empty()
-            .append(CHAT_PREFIX)
+            .append(Component.translatable("overgreen.chat.prefix").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD))
             .append(component));
     }
 }

@@ -57,7 +57,7 @@ final class OverGreenKeyHandler {
         addMessage(minecraft, Component.translatable("overgreen.chat.toggle_force_reduced_info.message", force ? CHAT_FORCED : CHAT_NOT_FORCED));
     }
 
-    static private void addMessage(Minecraft minecraft, Component component) {
+    private static void addMessage(Minecraft minecraft, Component component) {
         minecraft.gui.getChat().addMessage(Component.empty()
             .append(CHAT_PREFIX)
             .append(component));

@@ -32,7 +32,7 @@
     "overgreen.config.hud_format.screen.back": "Back",
     "overgreen.config.hud_format.screen.undo": "Undo",
     "overgreen.config.hud_format.screen.save": "Save",
-    "overgreen.config.hud_format.screen.description": "Replacements:\n{fps} {ping} - FPS and ping.\n{x} {y} {z} - coordinates.\n{x:0.0} {y:0.00} {z:0.000} - coordinates with custom format.\n{bx} {by} {bz} - block coordinates.\n{dir} - direction.\n{day} - current day.\n{nl} - new line.",
+    "overgreen.config.hud_format.screen.description": "Replacements:\n{fps} {ping} - FPS and ping.\n{x} {y} {z} - coordinates.\n{x:0.0} {y:0.00} {z:0.000} - coordinates with custom format.\n{bx} {by} {bz} - block coordinates.\n{dimension} {biome} - dimension and biome.\n{dir} {day} - look direction, current day.\n{nl} - new line.",
     "key.category.overgreen.category": "OverGreen",
     "key.overgreen.toggle_force_reduced_info": "Toggle Force Reduced Info",
     "overgreen.chat.prefix": "[OverGreen] ",

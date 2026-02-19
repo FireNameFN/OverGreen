@@ -4,11 +4,15 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.biome.Biome;
 
 final class HudFormatter {
     private final StringBuilder builder = new StringBuilder();
@@ -66,7 +70,7 @@ final class HudFormatter {
         list.add(new FlatReplacer(str.substring(start, end)));
     }
 
-    private static final Replacer getReplacer(String str, String key) {
+    private static Replacer getReplacer(String str, String key) {
         NumberFormat format = NumberFormat.getIntegerInstance();
 
         int index = key.indexOf(':');
@@ -97,11 +101,28 @@ final class HudFormatter {
             case "bx" -> (ReducedReplacer)(builder, entity) -> builder.append(entity.getBlockX());
             case "by" -> (ReducedReplacer)(builder, entity) -> builder.append(entity.getBlockY());
             case "bz" -> (ReducedReplacer)(builder, entity) -> builder.append(entity.getBlockZ());
+            case "dimension" -> (ReducedReplacer)(builder, entity) -> append(builder, entity.level().dimension().identifier());
+            case "biome" -> (ReducedReplacer)(builder, entity) -> {
+                Optional<ResourceKey<Biome>> resourceKey = entity.level().getBiome(entity.blockPosition()).unwrapKey();
+
+                if(resourceKey.isEmpty()) {
+                    builder.append('-');
+                    return;
+                }
+
+                append(builder, resourceKey.get().identifier());
+            };
             case "dir" -> (Replacer)(builder, entity, reduced) -> builder.append(entity.getDirection().getName());
             case "day" -> (Replacer)(builder, entity, reduced) -> builder.append(entity.level().getDayTime() / 24000 + 1);
             case "nl" -> new LineReplacer();
             default -> null;
         };
+    }
+
+    private static void append(StringBuilder builder, Identifier identifier) {
+        builder.append(identifier.getNamespace());
+        builder.append(':');
+        builder.append(identifier.getPath());
     }
 
     public void format(List<String> list) {
@@ -121,7 +142,7 @@ final class HudFormatter {
         }
     }
 
-    private static class FlatReplacer implements Replacer {
+    private static final class FlatReplacer implements Replacer {
         private final String str;
 
         public FlatReplacer(String str) {
@@ -134,7 +155,7 @@ final class HudFormatter {
         }
     }
 
-    private static class ReducedDoubleReplacer implements ReducedReplacer {
+    private static final class ReducedDoubleReplacer implements ReducedReplacer {
         private final NumberFormat format;
 
         private final RawDoubleReplacer replacer;
@@ -168,7 +189,7 @@ final class HudFormatter {
         public void replace(StringBuilder builder, Entity entity);
     }
 
-    private static class LineReplacer implements Replacer {
+    private static final class LineReplacer implements Replacer {
         public void replace(StringBuilder builder, Entity entity, boolean reduced) { }
     }
 

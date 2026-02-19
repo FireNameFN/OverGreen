@@ -9,7 +9,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import overgreen.OverGreen;
 
-public class ClientContainerTooltip implements ClientTooltipComponent {
+public final class ClientContainerTooltip implements ClientTooltipComponent {
     private static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath(OverGreen.MOD_ID, "textures/gui/container/tooltip/background.png");
 
     private static final int WIDTH = 18 * 9;

@@ -20,6 +20,12 @@ final class HudFormatScreen extends Screen {
 
     private final HudFormatOption option;
 
+    private int layoutX;
+
+    private int layoutY;
+
+    private int layoutHeight;
+
     public HudFormatScreen(Screen parent, HudFormatOption option) {
         super(TITLE);
 
@@ -29,21 +35,27 @@ final class HudFormatScreen extends Screen {
 
     @Override
     protected void init() {
-        int x = width / 2 - 200;
-        int y = height / 2 - 60;
+        int descriptionHeight = font.wordWrapHeight(FORMAT_DESCRIPTION, 400 - 12);
 
-        EditBox edit = new EditBox(font, x, y, 400, 20, EDIT_BOX);
+        layoutHeight = descriptionHeight + 50;
+
+        layoutX = width / 2 - 200;
+        layoutY = (height - layoutHeight) / 2;
+
+        EditBox edit = new EditBox(font, layoutX, layoutY, 400, 20, EDIT_BOX);
 
         edit.setMaxLength(128);
 
         edit.setValue(option.getValue());
 
+        int y = layoutY + descriptionHeight + 30;
+
         Button cancelButton = Button.builder(BACK_BUTTON, button -> onClose())
-            .bounds(x, y + 100, 80, 20)
+            .bounds(layoutX, y, 80, 20)
             .build();
 
         Button undoButton = Button.builder(UNDO_BUTTON, button -> edit.setValue(option.getValue()))
-            .bounds(x + 220, y + 100, 80, 20)
+            .bounds(layoutX + 220, y, 80, 20)
             .build();
 
         undoButton.active = false;
@@ -56,7 +68,7 @@ final class HudFormatScreen extends Screen {
         };
 
         Button saveButton = Button.builder(SAVE_BUTTON, onSavePress)
-            .bounds(x + 320, y + 100, 80, 20)
+            .bounds(layoutX + 320, y, 80, 20)
             .build();
 
         saveButton.active = false;
@@ -76,12 +88,24 @@ final class HudFormatScreen extends Screen {
 
     @Override
     public void render(GuiGraphics graphics, int x, int y, float delta) {
+        int backgroundX = layoutX - 6;
+        int backgroundY = layoutY - 5;
+
+        int backgroundX2 = layoutX + 406;
+        int backgroundY2 = layoutY + layoutHeight + 5;
+
+        int titleY2 = backgroundY - 3;
+        int titleY = titleY2 - font.lineHeight * 2;
+
+        graphics.fill(backgroundX, titleY, backgroundX2, titleY2, 0x90000000);
+
+        graphics.drawCenteredString(font, title, width / 2, titleY + (font.lineHeight + 1) / 2, CommonColors.WHITE);
+
+        graphics.fill(backgroundX, backgroundY, backgroundX2, backgroundY2, 0x40000000);
+
+        graphics.drawWordWrap(font, FORMAT_DESCRIPTION, layoutX + 3, layoutY + 25, 394, CommonColors.WHITE);
+
         super.render(graphics, x, y, delta);
-
-        int drawX = width / 2 - 195;
-        int drawY = height / 2 - 35;
-
-        graphics.drawWordWrap(font, FORMAT_DESCRIPTION, drawX, drawY, 390, CommonColors.WHITE);
     }
 
     @Override

@@ -6,7 +6,7 @@ OverGreen is Minecraft mod for Fabric that improves control of game's view. It u
 
 ### Download
 
-You can download this mod directly from [Modrinth](https://modrinth.com/project/overgreen).<br>
+You can download this mod directly from [Modrinth](https://modrinth.com/mod/overgreen).<br>
 Dependencies: Fabric API, Sodium.
 
 ### Features

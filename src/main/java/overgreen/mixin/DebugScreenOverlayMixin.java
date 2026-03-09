@@ -15,7 +15,7 @@ import overgreen.OverGreen;
 
 @Mixin(DebugScreenOverlay.class)
 abstract class DebugScreenOverlayMixin {
-    @ModifyExpressionValue(method = "render", at = @At(value = "INVOKE", target = "Ljava/util/Collection;isEmpty()Z", ordinal = 0))
+    @ModifyExpressionValue(method = "render", at = @At(value = "INVOKE", target = "Ljava/util/Collection;isEmpty()Z", ordinal = 0), allow = 1)
     private boolean isEmptyPermanentHud(boolean isEmpty) {
         return isEmpty && !OverGreen.isPermanentHudVisible();
     }

@@ -13,7 +13,7 @@ import net.minecraft.resources.Identifier;
 final class OverGreenKeyHandler {
     private static final KeyMapping.Category CATEGORY = new KeyMapping.Category(Identifier.fromNamespaceAndPath(OverGreen.MOD_ID, "category"));
 
-    private static final KeyMapping TOGGLE_FORCE_REDUCED_INFO_KEY = KeyBindingHelper.registerKeyBinding(new KeyMapping("key.overgreen.toggle_force_reduced_info", GLFW.GLFW_KEY_EQUAL, CATEGORY));
+    private static final KeyMapping TOGGLE_FORCE_REDUCED_INFO_KEY = KeyBindingHelper.registerKeyBinding(new KeyMapping("key.overgreen.toggle_force_reduced_info", GLFW.GLFW_KEY_UNKNOWN, CATEGORY));
 
     private static int toggleForceReducedInfoKeyPressedTicks;
 

@@ -10,7 +10,7 @@ import overgreen.OverGreen;
 
 @Mixin(LightTexture.class)
 abstract class LightTextureMixin {
-    @ModifyExpressionValue(method = "updateLightTexture", at = @At(value = "INVOKE", target = "Ljava/lang/Double;floatValue()F", ordinal = 1))
+    @ModifyExpressionValue(method = "updateLightTexture", at = @At(value = "INVOKE", target = "Ljava/lang/Double;floatValue()F", ordinal = 1), allow = 1)
     private float multiplyGamma(float gamma) {
         return gamma * OverGreen.getConfig().getGammaMultiplier();
     }

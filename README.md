@@ -11,6 +11,7 @@ Dependencies: Fabric API, Sodium.
 
 ### Features
 
+- Zooming
 - Modifying gamma
 - Disabling fog:
   - Overworld fog

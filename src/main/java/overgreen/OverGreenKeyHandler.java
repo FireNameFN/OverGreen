@@ -15,13 +15,37 @@ final class OverGreenKeyHandler {
 
     private static final KeyMapping TOGGLE_FORCE_REDUCED_INFO_KEY = KeyBindingHelper.registerKeyBinding(new KeyMapping("key.overgreen.toggle_force_reduced_info", GLFW.GLFW_KEY_UNKNOWN, CATEGORY));
 
+    private static final KeyMapping ZOOM_KEY = KeyBindingHelper.registerKeyBinding(new KeyMapping("key.overgreen.zoom", GLFW.GLFW_KEY_UNKNOWN, CATEGORY));
+
     private static int toggleForceReducedInfoKeyPressedTicks;
+
+    private static boolean zoomKeyPressed;
 
     public static void initialize() {
         ClientTickEvents.END_CLIENT_TICK.register(OverGreenKeyHandler::onEndClientTick);
     }
 
     private static void onEndClientTick(Minecraft minecraft) {
+        handleZoomKey();
+
+        handleToggleForceReducedInfoKey(minecraft);
+    }
+
+    private static void handleZoomKey() {
+        boolean pressed = ZOOM_KEY.isDown();
+
+        if(zoomKeyPressed == pressed)
+            return;
+
+        if(pressed)
+            OverGreen.enableZoom();
+        else
+            OverGreen.disableZoom();
+
+        zoomKeyPressed = pressed;
+    }
+
+    private static void handleToggleForceReducedInfoKey(Minecraft minecraft) {
         if(!TOGGLE_FORCE_REDUCED_INFO_KEY.isDown()) {
             toggleForceReducedInfoKeyPressedTicks = 0;
 

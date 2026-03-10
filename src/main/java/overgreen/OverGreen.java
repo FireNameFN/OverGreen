@@ -9,6 +9,8 @@ public final class OverGreen {
 
     private static final HudFormatter HUD_FORMATTER = new HudFormatter();
 
+    private static final OverGreenZoomHandler ZOOM_HANDLER = new OverGreenZoomHandler();
+
     public static OverGreenConfig getConfig() {
         return OverGreenConfigManager.getConfig();
     }
@@ -34,5 +36,33 @@ public final class OverGreen {
 
     static void updateHudFormat(String format) {
         HUD_FORMATTER.updateFormat(format);
+    }
+
+    public static void enableZoom() {
+        ZOOM_HANDLER.enableZoom();
+    }
+
+    public static void disableZoom() {
+        ZOOM_HANDLER.disableZoom();
+    }
+
+    public static void stepZoom(int value) {
+        ZOOM_HANDLER.stepZoom(value);
+    }
+
+    public static void tickZoom(float delta) {
+        ZOOM_HANDLER.tickZoom(delta);
+    }
+
+    public static boolean shouldHandleScroll() {
+        return ZOOM_HANDLER.shouldHandleScroll();
+    }
+
+    public static double getDynamicZoom() {
+        return ZOOM_HANDLER.getDynamicZoom();
+    }
+
+    public static double getSensitivityReduction() {
+        return ZOOM_HANDLER.getSensitivityReduction();
     }
 }

@@ -27,6 +27,14 @@ public final class OverGreenConfig {
 
     final BooleanOption forceReducedInfo = new BooleanOption();
 
+    final IntegerOption initialZoom = new IntegerOption();
+
+    final IntegerOption zoomStep = new IntegerOption();
+
+    final IntegerOption zoomExpDecay = new IntegerOption();
+
+    final IntegerOption sensitivityReduction = new IntegerOption();
+
     final BooleanOption showContainerTooltip = new BooleanOption();
 
     void dirty() {
@@ -98,6 +106,22 @@ public final class OverGreenConfig {
 
     public boolean getForceReducedInfo() {
         return forceReducedInfo.getValue();
+    }
+
+    public double getInitialZoom() {
+        return initialZoom.getValue() / 10d;
+    }
+
+    public double getZoomStep() {
+        return zoomStep.getValue() / 10d;
+    }
+
+    public double getZoomExpDecay() {
+        return zoomExpDecay.getValue() / 20d;
+    }
+
+    public double getSensitivityReduction() {
+        return sensitivityReduction.getValue() / 20d;
     }
 
     public boolean getShowContainerTooltip() {

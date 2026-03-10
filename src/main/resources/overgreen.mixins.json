@@ -6,10 +6,12 @@
         "ClientTooltipComponentMixin",
         "DebugScreenOverlayMixin",
         "FogRendererMixin",
+        "GameRendererMixin",
         "ItemContainerContentsMixin",
         "ItemMixin",
         "LightTextureMixin",
         "MinecraftMixin",
+        "MouseHandlerMixin",
         "ScreenEffectRendererMixin"
     ],
     "injectors": {

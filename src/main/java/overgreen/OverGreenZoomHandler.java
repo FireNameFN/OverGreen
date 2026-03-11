@@ -51,7 +51,7 @@ final class OverGreenZoomHandler {
 
         dynamicZoom = OverGreenMath.expDecay(dynamicZoom, zoom, config.getZoomExpDecay(), delta);
 
-        sensitivityReduction = Mth.lerp(config.getSensitivityReduction(), 1, 1 / dynamicZoom);
+        sensitivityReduction = 1 / Mth.lerp(config.getSensitivityReduction(), 1, 1 / dynamicZoom);
     }
 
     public boolean shouldHandleScroll() {
@@ -63,6 +63,6 @@ final class OverGreenZoomHandler {
     }
 
     public double getSensitivityReduction() {
-        return 1 / sensitivityReduction;
+        return sensitivityReduction;
     }
 }

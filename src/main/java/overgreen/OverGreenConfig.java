@@ -54,7 +54,7 @@ public final class OverGreenConfig {
         OverGreenConfigManager.saveConfig();
     }
 
-    void buildOptionText(OptionBuilder builder, String id) {
+    static void buildOptionText(OptionBuilder builder, String id) {
         String key = "overgreen.config." + id;
 
         builder

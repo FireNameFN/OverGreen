@@ -50,7 +50,7 @@ final class HudFormatOption implements Option {
         ExternalButtonOptionBuilder optionBuilder = builder.createExternalButtonOption(Identifier.fromNamespaceAndPath(OverGreen.MOD_ID, id))
             .setScreenConsumer(this::createScreen);
 
-        config.buildOptionText(optionBuilder, id);
+        OverGreenConfig.buildOptionText(optionBuilder, id);
 
         return optionBuilder;
     }

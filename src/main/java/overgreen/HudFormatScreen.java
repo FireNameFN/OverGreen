@@ -9,7 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.CommonColors;
 
 final class HudFormatScreen extends Screen {
-    private static final Component FORMAT_DESCRIPTION = Component.translatable("overgreen.config.hud_format.screen.description");
+    private final Component FORMAT_DESCRIPTION = Component.translatable("overgreen.config.hud_format.screen.description");
 
     private final Screen parent;
 

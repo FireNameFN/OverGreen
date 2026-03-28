@@ -46,7 +46,7 @@ final class OverGreenZoomHandler {
         zoom = 1 / nextZoom;
     }
 
-    public void tickZoom(float delta) {
+    public void updateZoom(float delta) {
         OverGreenConfig config = OverGreen.getConfig();
 
         dynamicZoom = OverGreenMath.expDecay(dynamicZoom, zoom, config.getZoomExpDecay(), delta);

@@ -113,7 +113,7 @@ final class HudFormatter {
                 append(builder, resourceKey.get().identifier());
             };
             case "dir" -> (Replacer)(builder, entity, reduced) -> builder.append(entity.getDirection().getName());
-            case "day" -> (Replacer)(builder, entity, reduced) -> builder.append(entity.level().getDayTime() / 24000 + 1);
+            case "day" -> (Replacer)(builder, entity, reduced) -> builder.append(entity.level().getGameTime() / 24000 + 1);
             case "nl" -> new LineReplacer();
             default -> null;
         };

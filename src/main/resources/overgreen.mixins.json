@@ -3,13 +3,13 @@
     "package": "overgreen.mixin",
     "compatibilityLevel": "JAVA_21",
     "client": [
+        "CameraMixin",
         "ClientTooltipComponentMixin",
         "DebugScreenOverlayMixin",
         "FogRendererMixin",
-        "GameRendererMixin",
         "ItemContainerContentsMixin",
         "ItemMixin",
-        "LightTextureMixin",
+        "LightmapRenderStateExtractorMixin",
         "MinecraftMixin",
         "MouseHandlerMixin",
         "ScreenEffectRendererMixin"

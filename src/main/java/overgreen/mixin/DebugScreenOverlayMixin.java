@@ -15,12 +15,12 @@ import overgreen.OverGreen;
 
 @Mixin(DebugScreenOverlay.class)
 abstract class DebugScreenOverlayMixin {
-    @ModifyExpressionValue(method = "render", at = @At(value = "INVOKE", target = "Ljava/util/Collection;isEmpty()Z", ordinal = 0), allow = 1)
+    @ModifyExpressionValue(method = "extractRenderState", at = @At(value = "INVOKE", target = "Ljava/util/Collection;isEmpty()Z", ordinal = 0), allow = 1)
     private boolean isEmptyPermanentHud(boolean isEmpty) {
         return isEmpty && !OverGreen.isPermanentHudVisible();
     }
 
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/DebugScreenOverlay;getLevel()Lnet/minecraft/world/level/Level;"), allow = 1)
+    @Inject(method = "extractRenderState", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/DebugScreenOverlay;getLevel()Lnet/minecraft/world/level/Level;"), allow = 1)
     private void displayPermanentHud(CallbackInfo callback, @Local(ordinal = 0) List<String> list) {
         if(OverGreen.isPermanentHudVisible())
             OverGreen.formatHud(list);

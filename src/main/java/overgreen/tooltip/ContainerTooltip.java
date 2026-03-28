@@ -1,13 +1,9 @@
 package overgreen.tooltip;
 
-import net.minecraft.core.NonNullList;
+import java.util.List;
+import java.util.Optional;
+
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 
-public final class ContainerTooltip implements TooltipComponent {
-    public final NonNullList<ItemStack> contents;
-
-    public ContainerTooltip(NonNullList<ItemStack> contents) {
-        this.contents = contents;
-    }
-}
+public record ContainerTooltip(List<Optional<ItemStackTemplate>> contents) implements TooltipComponent { }

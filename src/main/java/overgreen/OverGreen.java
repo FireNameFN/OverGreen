@@ -50,8 +50,8 @@ public final class OverGreen {
         ZOOM_HANDLER.stepZoom(value);
     }
 
-    public static void tickZoom(float delta) {
-        ZOOM_HANDLER.tickZoom(delta);
+    public static void updateZoom(float delta) {
+        ZOOM_HANDLER.updateZoom(delta);
     }
 
     public static boolean shouldHandleScroll() {

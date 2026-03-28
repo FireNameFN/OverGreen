@@ -3,7 +3,7 @@ package overgreen;
 import org.lwjgl.glfw.GLFW;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -13,9 +13,9 @@ import net.minecraft.resources.Identifier;
 final class OverGreenKeyHandler {
     private static final KeyMapping.Category CATEGORY = new KeyMapping.Category(Identifier.fromNamespaceAndPath(OverGreen.MOD_ID, "category"));
 
-    private static final KeyMapping TOGGLE_FORCE_REDUCED_INFO_KEY = KeyBindingHelper.registerKeyBinding(new KeyMapping("key.overgreen.toggle_force_reduced_info", GLFW.GLFW_KEY_UNKNOWN, CATEGORY));
+    private static final KeyMapping TOGGLE_FORCE_REDUCED_INFO_KEY = KeyMappingHelper.registerKeyMapping(new KeyMapping("key.overgreen.toggle_force_reduced_info", GLFW.GLFW_KEY_UNKNOWN, CATEGORY));
 
-    private static final KeyMapping ZOOM_KEY = KeyBindingHelper.registerKeyBinding(new KeyMapping("key.overgreen.zoom", GLFW.GLFW_KEY_UNKNOWN, CATEGORY));
+    private static final KeyMapping ZOOM_KEY = KeyMappingHelper.registerKeyMapping(new KeyMapping("key.overgreen.zoom", GLFW.GLFW_KEY_UNKNOWN, CATEGORY));
 
     private static int toggleForceReducedInfoKeyPressedTicks;
 
@@ -79,7 +79,7 @@ final class OverGreenKeyHandler {
     }
 
     private static void addMessage(Minecraft minecraft, Component component) {
-        minecraft.gui.getChat().addMessage(Component.empty()
+        minecraft.gui.getChat().addClientSystemMessage(Component.empty()
             .append(Component.translatable("overgreen.chat.prefix").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD))
             .append(component));
     }

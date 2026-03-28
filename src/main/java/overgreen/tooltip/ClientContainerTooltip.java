@@ -1,12 +1,15 @@
 package overgreen.tooltip;
 
+import java.util.List;
+import java.util.Optional;
+
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.core.NonNullList;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import overgreen.OverGreen;
 
 public final class ClientContainerTooltip implements ClientTooltipComponent {
@@ -16,9 +19,9 @@ public final class ClientContainerTooltip implements ClientTooltipComponent {
 
     private static final int HEIGHT = 18 * 3;
 
-    private final NonNullList<ItemStack> contents;
+    private final List<Optional<ItemStackTemplate>> contents;
 
-    public ClientContainerTooltip(NonNullList<ItemStack> contents) {
+    public ClientContainerTooltip(List<Optional<ItemStackTemplate>> contents) {
         this.contents = contents;
     }
 
@@ -33,23 +36,25 @@ public final class ClientContainerTooltip implements ClientTooltipComponent {
     }
 
     @Override
-	public void renderImage(Font font, int x, int y, int width, int height, GuiGraphics graphics) {
+	public void extractImage(Font font, int x, int y, int width, int height, GuiGraphicsExtractor graphics) {
         graphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, x, y, 0, 0, WIDTH, HEIGHT, 256, 64);
 
         x++;
         y++;
 
         for(int i = 0; i < contents.size(); i++) {
-            ItemStack item = contents.get(i);
+            Optional<ItemStackTemplate> itemTemplate = contents.get(i);
 
-            if(item.isEmpty())
+            if(itemTemplate.isEmpty())
                 continue;
+
+            ItemStack item = itemTemplate.get().create();
 
             int slotX = x + (i % 9) * 18;
             int slotY = y + (i / 9) * 18;
 
-            graphics.renderItem(item, slotX, slotY);
-            graphics.renderItemDecorations(font, item, slotX, slotY);
+            graphics.item(item, slotX, slotY);
+            graphics.itemDecorations(font, item, slotX, slotY);
         }
 	}
 }

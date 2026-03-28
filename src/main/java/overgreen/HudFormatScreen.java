@@ -1,6 +1,6 @@
 package overgreen;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Button.OnPress;
 import net.minecraft.client.gui.components.EditBox;
@@ -82,7 +82,7 @@ final class HudFormatScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics graphics, int x, int y, float delta) {
+    public void extractRenderState(GuiGraphicsExtractor graphics, int x, int y, float delta) {
         int backgroundX = layoutX - 6;
         int backgroundY = layoutY - 5;
 
@@ -94,13 +94,13 @@ final class HudFormatScreen extends Screen {
 
         graphics.fill(backgroundX, titleY, backgroundX2, titleY2, 0x90000000);
 
-        graphics.drawCenteredString(font, title, width / 2, titleY + (font.lineHeight + 1) / 2, CommonColors.WHITE);
+        graphics.centeredText(font, title, width / 2, titleY + (font.lineHeight + 1) / 2, CommonColors.WHITE);
 
         graphics.fill(backgroundX, backgroundY, backgroundX2, backgroundY2, 0x40000000);
 
-        graphics.drawWordWrap(font, FORMAT_DESCRIPTION, layoutX + 3, layoutY + 25, 394, CommonColors.WHITE);
+        graphics.textWithWordWrap(font, FORMAT_DESCRIPTION, layoutX + 3, layoutY + 25, 394, CommonColors.WHITE);
 
-        super.render(graphics, x, y, delta);
+        super.extractRenderState(graphics, x, y, delta);
     }
 
     @Override

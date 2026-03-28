@@ -1,5 +1,6 @@
 package overgreen.mixin;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -8,11 +9,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.fabricmc.fabric.mixin.transfer.ItemContainerContentsAccessor;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.component.ItemContainerContents;
 import overgreen.OverGreen;
 import overgreen.tooltip.ContainerTooltip;
@@ -29,7 +30,7 @@ abstract class ItemMixin {
         if(container == null)
             return;
 
-        NonNullList<ItemStack> contents = ((ItemContainerContentsAccessor)(Object)container).fabric_getStacks();
+        List<Optional<ItemStackTemplate>> contents = ((ItemContainerContentsAccessor)(Object)container).fabric_getItems();
 
         if(contents.isEmpty())
             return;

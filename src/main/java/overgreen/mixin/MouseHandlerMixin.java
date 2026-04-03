@@ -14,7 +14,7 @@ import overgreen.OverGreen;
 
 @Mixin(MouseHandler.class)
 abstract class MouseHandlerMixin {
-    @Inject(method = "onScroll", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;getInventory()Lnet/minecraft/world/entity/player/Inventory;"), cancellable = true, allow = 1)
+    @Inject(method = "onScroll", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;isSpectator()Z"), cancellable = true, allow = 1)
     private void handleScroll(CallbackInfo callback, @Local int value) {
         if(!OverGreen.shouldHandleScroll())
             return;

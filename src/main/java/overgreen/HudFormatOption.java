@@ -58,6 +58,6 @@ final class HudFormatOption implements Option {
     private void createScreen(Screen parent) {
         HudFormatScreen screen = new HudFormatScreen(parent, this);
 
-        Minecraft.getInstance().setScreen(screen);
+        Minecraft.getInstance().setScreenAndShow(screen);
     }
 }

@@ -18,7 +18,7 @@ public final class OverGreen {
     public static boolean isPermanentHudVisible() {
         Minecraft minecraft = Minecraft.getInstance();
 
-        if(!getConfig().getEnablePermanentHud() && !(minecraft.screen instanceof HudFormatScreen))
+        if(!getConfig().getEnablePermanentHud() && !(minecraft.gui.screen() instanceof HudFormatScreen))
             return false;
 
         if(minecraft.debugEntries.isOverlayVisible())

@@ -74,13 +74,13 @@ final class OverGreenKeyHandler {
         config.flush();
 
         addMessage(minecraft, Component.translatable("overgreen.chat.toggle_force_reduced_info.message", force
-            ? Component.translatable("overgreen.chat.toggle_force_reduced_info.forced").withStyle(ChatFormatting.RED)
-            : Component.translatable("overgreen.chat.toggle_force_reduced_info.not_forced").withStyle(ChatFormatting.GREEN)));
+            ? Component.translatable("overgreen.chat.toggle_force_reduced_info.forced").withStyle(ChatFormatting.GREEN)
+            : Component.translatable("overgreen.chat.toggle_force_reduced_info.not_forced").withStyle(ChatFormatting.RED)));
     }
 
     private static void addMessage(Minecraft minecraft, Component component) {
-        minecraft.gui.getChat().addClientSystemMessage(Component.empty()
+        minecraft.gui.chatListener().handleSystemMessage(Component.empty()
             .append(Component.translatable("overgreen.chat.prefix").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD))
-            .append(component));
+            .append(component), false);
     }
 }

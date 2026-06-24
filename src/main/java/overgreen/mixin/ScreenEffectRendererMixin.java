@@ -26,8 +26,8 @@ abstract class ScreenEffectRendererMixin {
 
         int color = (int)args.get(8);
 
-        float alpha = ARGB.alphaFloat(color) * config.getFireTransparency();
+        float transparency = config.getFireTransparency();
 
-        args.set(8, ARGB.color(alpha, color));
+        args.set(8, ARGB.multiplyAlpha(color, transparency));
     }
 }

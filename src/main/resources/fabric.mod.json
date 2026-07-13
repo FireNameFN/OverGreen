@@ -9,8 +9,8 @@
     ],
     "contact": {
         "homepage": "https://modrinth.com/mod/overgreen",
-        "issues": "https://github.com/FireNameFN/OverGreen/issues",
-        "sources": "https://github.com/FireNameFN/OverGreen"
+        "issues": "https://github.com/ProtoFN/OverGreen/issues",
+        "sources": "https://github.com/ProtoFN/OverGreen"
     },
     "license": "MIT",
     "icon": "assets/overgreen/icon.png",

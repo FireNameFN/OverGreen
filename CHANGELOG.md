@@ -11,5 +11,6 @@ OverGreen is using incremental versioning.
 ### Changed
 
 - Update links to GitHub.
+- Use `ARGB.multiplyAlpha` in `ScreenEffectRendererMixin`.
 
 [@ProtoFN]: https://github.com/ProtoFN
